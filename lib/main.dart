@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
         '/': (ctx) => const TabScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
-        FilterScreen.routeName: (ctx) => FilterScreen( saveFilters: _setFilters,)
+        FilterScreen.routeName: (ctx) => FilterScreen(saveFilters: _setFilters, currentFilters: _filters,)
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
