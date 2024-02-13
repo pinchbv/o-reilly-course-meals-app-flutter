@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
@@ -7,7 +8,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget buildListTile(String title, IconData iconData) {
+    Widget buildListTile(String title, IconData iconData, Function tapHandler) {
       return ListTile(
         leading: Icon(iconData), // Create an Icon widget from the IconData
         title: Text(
@@ -18,9 +19,7 @@ class MainDrawer extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        onTap: () {
-          // Add onTap functionality here
-        },
+        onTap: () => tapHandler(),
       );
     }
 
@@ -33,15 +32,24 @@ class MainDrawer extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
-            child: Text('Cooking up', style: TextStyle(
+            child: Text(
+              'Cooking up',
+              style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 30,
                 color: theme.primaryColor,
-            ),),
+              ),
+            ),
           ),
-          const SizedBox(height: 20,),
-          buildListTile('Meals', Icons.restaurant),
-          buildListTile('Filters', Icons.settings)
+          const SizedBox(
+            height: 20,
+          ),
+          buildListTile('Meals', Icons.restaurant, () {
+            Navigator.of(context).pushReplacementNamed("/");
+          }),
+          buildListTile('Filters', Icons.settings, (){
+            Navigator.of(context).pushReplacementNamed(FilterScreen.routeName);
+          })
         ],
       ),
     );
