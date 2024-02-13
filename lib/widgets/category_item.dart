@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/category_meals_screen.dart';
-
-class CategoryArguments {
-  final String id;
-  final String title;
-
-  CategoryArguments({
-    required this.id,
-    required this.title
-  });
-}
+import 'package:meals_app/screens/category_meals_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
@@ -26,9 +16,13 @@ class CategoryItem extends StatelessWidget {
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       CategoryMealsScreen.routeName,
-      arguments: CategoryArguments(id: id, title: title),
+      arguments: {
+        'id': id,
+        'title': title,
+      },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
