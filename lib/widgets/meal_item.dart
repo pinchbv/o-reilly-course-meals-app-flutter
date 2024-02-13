@@ -9,15 +9,16 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
 
-  const MealItem({
-    super.key,
+  const MealItem({super.key,
     required this.id,
     required this.title,
     required this.imageUrl,
     required this.duration,
     required this.complexity,
-    required this.affordability
+    required this.affordability,
+    required this.removeItem
   });
 
   String get complexityText {
@@ -31,8 +32,8 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  String get affordabilityText{
-    switch (affordability){
+  String get affordabilityText {
+    switch (affordability) {
       case Affordability.affordable:
         return 'Affordable';
       case Affordability.pricey:
@@ -41,8 +42,14 @@ class MealItem extends StatelessWidget {
         return 'Expensive';
     }
   }
+
   void selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id);
+    Navigator.of(context)
+        .pushNamed(MealDetailScreen.routeName, arguments: id).then((value) {
+          if(value != null){
+            removeItem(value);
+          }
+    });
   }
 
   @override
@@ -96,21 +103,33 @@ class MealItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(children: [
-                    const Icon(Icons.schedule),
-                    const SizedBox(width: 6,),
-                    Text('$duration min')
-                  ],),
-                  Row(children: [
-                    const Icon(Icons.work),
-                    const SizedBox(width: 6,),
-                    Text(complexityText)
-                  ],),
-                  Row(children: [
-                    const Icon(Icons.attach_money),
-                    const SizedBox(width: 6,),
-                    Text(affordabilityText)
-                  ],)
+                  Row(
+                    children: [
+                      const Icon(Icons.schedule),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text('$duration min')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.work),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(complexityText)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.attach_money),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(affordabilityText)
+                    ],
+                  )
                 ],
               ),
             ),
